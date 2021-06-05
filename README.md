@@ -1,4 +1,4 @@
-# admin
+# Gestao de Stock usando VueJs & Laravel
 
 ## Project setup
 ```
