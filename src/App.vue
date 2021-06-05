@@ -1,32 +1,69 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app id="inspire">
+ <v-navigation-drawer
+      class="deep-purple accent-4"
+      dark
+      v-model="drawer"
+      app
+    >
+      <v-list>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          :to="item.to"
+          link
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn block>
+            Sair
+          </v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Dashboard</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <!--  -->
+      <router-view/>
+    </v-main>
+      <v-footer >
+    <v-col
+      class="text-center"
+      cols="12"
+    >
+      {{ new Date().getFullYear() }} — <strong>Marino Ricardo</strong>
+    </v-col>
+  </v-footer>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+  export default {
+    data: () => (
+      { drawer: null,
+      items: [
+          { title: 'Inicio', icon: 'mdi-view-dashboard', to: '/' },
+          { title: 'Produtos', icon: 'mdi-account-box', to: '/productos' },
+          { title: 'Vendas', icon: 'mdi-gavel' , to: '/vendas'},
+          { title: 'Relatorios', icon: 'mdi-account-box',to: '/relatorios' },
+          { title: 'Sobre', icon: 'mdi-account-box',to: '/about' },
+        ],
+      }),
+    
   }
-}
-</style>
+</script>
